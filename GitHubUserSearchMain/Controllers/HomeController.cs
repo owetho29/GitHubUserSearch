@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Octokit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GitHubUserSearchMain.Models;
 
 namespace GitHubUserSearchMain.Controllers
 {
@@ -13,18 +15,36 @@ namespace GitHubUserSearchMain.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public async System.Threading.Tasks.Task<ActionResult> Search(string searchterm)
         {
-            ViewBag.Message = "Your application description page.";
+            var client = new GitHubClient(new ProductHeaderValue("GitUserSearchTest"));
 
-            return View();
-        }
+            string userRequest = searchterm;
+            var request = new SearchUsersRequest(userRequest);
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            var searchResult = await client.Search.SearchUsers(request);
 
-            return View();
+            if (searchResult.TotalCount != 0)
+            {
+                //A test to retrieve respositories of a specific GitHub User
+                User gitHubUser = await client.User.Get(userRequest);
+                IReadOnlyList<Repository> githubRepositories = await client.Repository.GetAllForUser(gitHubUser.Login);
+
+                var user = new SearchUser(userRequest, githubRepositories, searchResult);
+
+                return View(user);
+            }
+            else
+            {
+                //Build the class with the search results and pass to the view
+
+                //var user = new SearchUser(userRequest, githubRepositories, searchResult);
+
+                return View(user);
+            }
+
+
         }
     }
 }
