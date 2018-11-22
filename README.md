@@ -6,6 +6,8 @@ To install OctoKit:
 Octokit is a GitHub API client library for .NET and is available on NuGet:
 
 Install-Package Octokit
+
+
 There is also an IObservable based GitHub API client library for .NET using Reactive Extensions:
 
 Install-Package Octokit.Reactive
