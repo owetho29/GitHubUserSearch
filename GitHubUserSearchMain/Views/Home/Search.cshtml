@@ -1,0 +1,47 @@
+﻿@using Octokit
+@model GitHubUserSearchMain.Models.SearchUser
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (@Model.Result.Items.Count != 0)
+{
+    <h1>The following users were found: </h1>
+
+    foreach (var r in @Model.Result.Items)
+    {
+        <p>@r.HtmlUrl</p>
+    }
+
+    <h2>Repositories:</h2>
+    <table style="width: 100%">
+        <thead>
+            <tr>
+                <th>
+                    Repository
+                </th>
+                <th>
+                    URL
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Repository r in @Model.GitHubRepositories)
+            {
+                <tr>
+                    <td>@r.Name</td>
+                    <td>@r.HtmlUrl</td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+
+}
+else
+{
+    <h1>No users found!</h1>
+}
+
