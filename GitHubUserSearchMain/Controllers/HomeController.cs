@@ -50,5 +50,10 @@ namespace GitHubUserSearchMain.Controllers
 
 
         }
+
+        public ActionResult ShowRepo(IReadOnlyList<Repository> githubRepositories)
+        {
+            return PartialView("RepoPartial");
+        }
     }
 }

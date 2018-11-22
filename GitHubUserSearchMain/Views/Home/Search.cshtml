@@ -30,11 +30,13 @@
                 <tr>
                     <td>@su.Name</td>
                     <td>@su.URL</td>
-                    <td><button type="button" id="modal" class="openListing btn btn-info" data-toggle="modal" data-prodname="@su.Name" data-target="#prod_details" data-repoList="@su.GitHubRepositories">View Repo</button></td>
+                    
+                    <td><button type="button" id="modal" class="openListing btn btn-info" data-toggle="modal" data-prodname="@su.Name" data-target="#prod_details" data-repoList="@su.GitHubRepositories">View Repositories</button></td>
                 </tr>
                 <tr class ="hidden" id="repos">
                     @foreach (Repository r in @su.GitHubRepositories)
                     {
+                        
                         <td>@r.Name</td>
                         <td>@r.HtmlUrl</td>
                     }
@@ -51,22 +53,18 @@ else
     <h1>No users found!</h1>
 }
 
-<div class="modal fade" id="prod_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="prod_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;" readonly>Repositories</h5>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+                <h3 class="modal-title">Repositories</h3>
 
-
-
-                <span aria-hidden="true">&times;</span>
                 
             </div>
             <div class="modal-body table-responsive">
 
 
-                <table class="table table-dark">
+                <table class="table">
                     <thead>
                     <tr>
                         <td>
@@ -79,10 +77,10 @@ else
                     </thead>
                     <tr>
                         <td>
-                            A modal!
+                            
                         </td>
                         <td>
-                            A modal!
+                            
                         </td>
                     </tr>
 
@@ -102,7 +100,8 @@ else
 
         var button = $(event.relatedTarget); // Button that triggered the modal
         var name = button.data('prodname');
-        var repoList = button.data('repoList');
+        var repoList = button.data('repoList'); 
+        
 
         var modal = $(this);
 
