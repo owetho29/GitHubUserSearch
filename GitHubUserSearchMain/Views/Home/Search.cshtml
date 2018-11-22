@@ -1,4 +1,5 @@
 ﻿@using GitHubUserSearchMain.Models
+@using Microsoft.Ajax.Utilities
 @using Octokit
 @model List<GitHubUserSearchMain.Models.SearchUser>
 @{
@@ -27,16 +28,20 @@
         </thead>
         <tbody>
         
+        <!--Count used to distinguish different modals (work around for not showing repo data in modal)-->
+        @{ var count = 0;}
+            
+
         <!-- For each user returned in the model, display their details-->
         @foreach (SearchUser su in @Model)
         {
             <tr>
                 <td>@su.Name</td>
                 <td><a href="@su.URL">@su.URL</a></td>
-                <td><button type="button" id="modal" class="openListing btn btn-info" data-toggle="modal" data-prodname="@su.Name" data-target="#prod_details" data-repoList="@su.GitHubRepositories">View Repositories</button></td>
+                <td><button type="button" id="modal" class="openListing btn btn-info" data-toggle="modal" data-prodname="@su.Name" data-target="#repos-@count" data-repoList="@su.GitHubRepositories">View Repositories</button></td>
                 <td>
                     <!-- modal for the display of repositories of the user-->
-                    <div class="modal fade" id="prod_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+                    <div class="modal fade" id="repos-@count" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -53,7 +58,7 @@
                                                     @repo.Name
                                                 </td>
                                                 <td>
-                                                    @repo.HtmlUrl
+                                                    <a href="@repo.HtmlUrl">@repo.HtmlUrl</a>
                                                 </td>
                                             </tr>
                                         }
@@ -71,9 +76,8 @@
                         </div>
                     </div>
                 </td>
-
             </tr>
-
+            count = count + 1;
 
 
         }
@@ -93,7 +97,7 @@ else
 
 <!-- Script to display the above modal on user button click-->
 <script type="text/javascript">
-    $('#prod_details').on('show.bs.modal', function (event) {
+    $('#repos').on('show.bs.modal', function (event) {
 
         var button = $(event.relatedTarget);
         var name = button.data('prodname');
