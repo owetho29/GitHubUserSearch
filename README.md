@@ -21,8 +21,13 @@ Install-Package Octokit.Reactive
 
 
 **PERTINANT FILES FOR REVIEW:**
+
 Controllers/HomeController.cs
+
 Models/SearchUser.cs
+
 Views/Home/Index.cshtml
+
 Views/Home/Search.cshtml
+
 
