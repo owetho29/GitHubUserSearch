@@ -20,6 +20,8 @@ namespace GitHubUserSearchMain.Controllers
         {
             var client = new GitHubClient(new ProductHeaderValue("GitUserSearchTest"));
 
+            List<SearchUser> resultList = new List<SearchUser>();
+
             string userRequest = searchterm;
             var request = new SearchUsersRequest(userRequest);
 
@@ -27,13 +29,16 @@ namespace GitHubUserSearchMain.Controllers
 
             if (searchResult.TotalCount != 0)
             {
-                //A test to retrieve respositories of a specific GitHub User
-                User gitHubUser = await client.User.Get(userRequest);
-                IReadOnlyList<Repository> githubRepositories = await client.Repository.GetAllForUser(gitHubUser.Login);
-
-                var user = new SearchUser(userRequest, githubRepositories, searchResult);
-
-                return View(user);
+                foreach (var r in searchResult.Items)
+                {
+                    User gitHubUser = await client.User.Get(r.Login);
+                    IReadOnlyList<Repository> githubRepositories = await client.Repository.GetAllForUser(gitHubUser.Login);
+                    var user = new SearchUser(gitHubUser.Login, githubRepositories, searchResult);
+                    resultList.Add(user);
+                }
+                
+                
+                return View(resultList);
             }
             else
             {
