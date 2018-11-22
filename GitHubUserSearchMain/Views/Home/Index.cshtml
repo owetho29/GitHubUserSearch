@@ -6,3 +6,12 @@
     <h1>GitHub User Search</h1>
     <p class="lead">A .NET application for searching GitHub users via the OctoKit API.</p>
 </div>
+
+<div class="search">
+
+    <form method="get" action="@Url.Action("Search", "Home")">
+        <input type="text" name="searchterm" id="searchterm" />
+        <button type="submit">Search</button>
+    </form>
+
+</div>
