@@ -33,7 +33,7 @@ namespace GitHubUserSearchMain.Controllers
                 {
                     User gitHubUser = await client.User.Get(r.Login);
                     IReadOnlyList<Repository> githubRepositories = await client.Repository.GetAllForUser(gitHubUser.Login);
-                    var user = new SearchUser(gitHubUser.Login, githubRepositories, searchResult);
+                    var user = new SearchUser(gitHubUser.Login, githubRepositories, searchResult, gitHubUser.HtmlUrl);
                     resultList.Add(user);
                 }
                 

@@ -11,12 +11,14 @@ namespace GitHubUserSearchMain.Models
         public string Name { get; set; }
         public IReadOnlyList<Repository> GitHubRepositories { get; set; }
         public SearchUsersResult Result { get; set; }
+        public string URL { get; set; }
 
-        public SearchUser(string user, IReadOnlyList<Repository> gitHubRepo, SearchUsersResult result)
+        public SearchUser(string user, IReadOnlyList<Repository> gitHubRepo, SearchUsersResult result, string url)
         {
             this.GitHubRepositories = gitHubRepo;
             this.Name = user;
             this.Result = result;
+            this.URL = url;
         }
 
         public SearchUser(string user, SearchUsersResult result)

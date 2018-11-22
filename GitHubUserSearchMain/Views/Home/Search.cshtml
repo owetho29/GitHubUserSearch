@@ -1,4 +1,5 @@
-﻿@using Octokit
+﻿@using GitHubUserSearchMain.Models
+@using Octokit
 @model List<GitHubUserSearchMain.Models.SearchUser>
 @{
     ViewBag.Title = "Index";
@@ -9,43 +10,52 @@
 {
     <h1>The following users were found: </h1>
 
-    foreach (var r in @Model)
-    {
-        <p>@r.Name</p>
-
-        //Button for more details, show all repos if clicked
-        //<p>@r.GitHubRepositories</p>
-    }
-
-
-    <h2>Repositories:</h2>
     <table style="width: 100%">
         <thead>
             <tr>
                 <th>
-                    Repository
+                    Name
                 </th>
                 <th>
                     URL
                 </th>
+                <th>
+                    Details
+                </th>
             </tr>
         </thead>
         <tbody>
-            <!--foreach (Repository r in @Model)
+            @foreach(SearchUser su in @Model)
             {
                 <tr>
-                    <td>r.Name</td>
-                    <td>r.HtmlUrl</td>
+                    <td>@su.Name</td>
+                    <td>@su.URL</td>
+                    <td><button class="view">View Details</button></td>
                 </tr>
-            }-->
+                <tr class ="hidden">
+                    @foreach (Repository r in @su.GitHubRepositories)
+                    {
+                        <td>@r.Name</td>
+                        <td>@r.HtmlUrl</td>
+                    }
+                </tr>
+            }
         </tbody>
 
 
     </table>
-
+    
 }
 else
 {
     <h1>No users found!</h1>
 }
+
+<script>
+    $(document).ready(function () {
+        $('.view').click(function () {
+            
+        });
+    });
+ </script>
 
