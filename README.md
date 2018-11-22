@@ -3,6 +3,12 @@ A .NET app for searching GitHub users via the OctoKit API.
 
 
 
+**IMPORTANT!**
+
+*There is an API rate limit, keep searches narrow to avoid hitting rate limit*
+
+
+
 
 To install OctoKit:
 
@@ -29,5 +35,4 @@ Models/SearchUser.cs
 Views/Home/Index.cshtml
 
 Views/Home/Search.cshtml
-
 
