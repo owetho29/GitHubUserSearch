@@ -1,0 +1,108 @@
+﻿@using GitHubUserSearchMain.Models
+@using Octokit
+@model List<GitHubUserSearchMain.Models.SearchUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if ((@Model.Count) > 0)
+{
+    <h1>The following users were found: </h1>
+
+    <!--Table to return the results of the user search to the user-->
+    <table style="width: 100%">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    URL
+                </th>
+                <th>
+                    Repositories
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <!-- For each user returned in the model, display their details-->
+        @foreach (SearchUser su in @Model)
+        {
+            <tr>
+                <td>@su.Name</td>
+                <td><a href="@su.URL">@su.URL</a></td>
+                <td><button type="button" id="modal" class="openListing btn btn-info" data-toggle="modal" data-prodname="@su.Name" data-target="#prod_details" data-repoList="@su.GitHubRepositories">View Repositories</button></td>
+            </tr>
+            
+        }
+        </tbody>
+
+
+    </table>
+
+}
+else
+{
+    <!-- else if the list is empty, no users are found-->
+    <h1>No users found!</h1>
+}
+
+<!-- modal for the display of repositories of the user-->
+<div class="modal fade" id="prod_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Repositories</h3>
+
+                
+            </div>
+            <div class="modal-body table-responsive">
+
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>
+                            Repo Name
+                        </td>
+                        <td>
+                            Repo URL
+                        </td>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Script to display the above modal on user button click-->
+<script type="text/javascript">
+    $('#prod_details').on('show.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var name = button.data('prodname');
+        var repoList = button.data('repoList'); 
+        
+
+        var modal = $(this);
+
+        modal.find('.modal-title').text(name);
+})
+</script>
+
