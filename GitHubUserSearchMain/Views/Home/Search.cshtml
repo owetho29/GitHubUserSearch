@@ -20,7 +20,7 @@
                     URL
                 </th>
                 <th>
-                    Details
+                    Repositories
                 </th>
             </tr>
         </thead>
@@ -30,9 +30,9 @@
                 <tr>
                     <td>@su.Name</td>
                     <td>@su.URL</td>
-                    <td><button class="view">View Details</button></td>
+                    <td><button type="button" id="modal" class="openListing btn btn-info" data-toggle="modal" data-prodname="@su.Name" data-target="#prod_details" data-repoList="@su.GitHubRepositories">View Repo</button></td>
                 </tr>
-                <tr class ="hidden">
+                <tr class ="hidden" id="repos">
                     @foreach (Repository r in @su.GitHubRepositories)
                     {
                         <td>@r.Name</td>
@@ -51,11 +51,62 @@ else
     <h1>No users found!</h1>
 }
 
-<script>
-    $(document).ready(function () {
-        $('.view').click(function () {
-            
-        });
-    });
- </script>
+<div class="modal fade" id="prod_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color: white;" readonly>Repositories</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+
+
+
+                <span aria-hidden="true">&times;</span>
+                
+            </div>
+            <div class="modal-body table-responsive">
+
+
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <td>
+                            Repo Name
+                        </td>
+                        <td>
+                            Repo URL
+                        </td>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td>
+                            A modal!
+                        </td>
+                        <td>
+                            A modal!
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $('#prod_details').on('show.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var name = button.data('prodname');
+        var repoList = button.data('repoList');
+
+        var modal = $(this);
+
+        modal.find('.modal-title').text(name);
+})
+</script>
 
