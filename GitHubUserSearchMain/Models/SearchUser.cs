@@ -18,5 +18,11 @@ namespace GitHubUserSearchMain.Models
             this.Name = user;
             this.Result = result;
         }
+
+        public SearchUser(string user, SearchUsersResult result)
+        {
+            this.Name = user;
+            this.Result = result;
+        }
     }
 }

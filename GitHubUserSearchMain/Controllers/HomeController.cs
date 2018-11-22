@@ -38,9 +38,7 @@ namespace GitHubUserSearchMain.Controllers
             else
             {
                 //Build the class with the search results and pass to the view
-                User gitHubUser = await client.User.Get(userRequest);
-                IReadOnlyList<Repository> githubRepositories = await client.Repository.GetAllForUser(gitHubUser.Login);
-                var user = new SearchUser(userRequest, githubRepositories, searchResult);
+                var user = new SearchUser(userRequest, searchResult);
 
                 return View(user);
             }
