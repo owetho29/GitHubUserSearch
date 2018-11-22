@@ -11,3 +11,7 @@ Install-Package Octokit
 There is also an IObservable based GitHub API client library for .NET using Reactive Extensions:
 
 Install-Package Octokit.Reactive
+
+
+**NOT IMPLEMENTED**
+--Repo Modals not loading data properly
