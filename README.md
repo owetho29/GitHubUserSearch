@@ -20,6 +20,9 @@ Install-Package Octokit.Reactive
 
 
 
-**NOT IMPLEMENTED:**
+**PERTINANT FILES FOR REVIEW:**
+Controllers/HomeController.cs
+Models/SearchUser.cs
+Views/Home/Index.cshtml
+Views/Home/Search.cshtml
 
---Repo Modals not loading data properly
