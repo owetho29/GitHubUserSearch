@@ -10,6 +10,7 @@
 {
     <h1>The following users were found: </h1>
 
+    <!--Table to return the results of the user search to the user-->
     <table style="width: 100%">
         <thead>
             <tr>
@@ -25,34 +26,29 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(SearchUser su in @Model)
-            {
-                <tr>
-                    <td>@su.Name</td>
-                    <td>@su.URL</td>
-                    
-                    <td><button type="button" id="modal" class="openListing btn btn-info" data-toggle="modal" data-prodname="@su.Name" data-target="#prod_details" data-repoList="@su.GitHubRepositories">View Repositories</button></td>
-                </tr>
-                <tr class ="hidden" id="repos">
-                    @foreach (Repository r in @su.GitHubRepositories)
-                    {
-                        
-                        <td>@r.Name</td>
-                        <td>@r.HtmlUrl</td>
-                    }
-                </tr>
-            }
+        <!-- For each user returned in the model, display their details-->
+        @foreach (SearchUser su in @Model)
+        {
+            <tr>
+                <td>@su.Name</td>
+                <td><a href="@su.URL">@su.URL</a></td>
+                <td><button type="button" id="modal" class="openListing btn btn-info" data-toggle="modal" data-prodname="@su.Name" data-target="#prod_details" data-repoList="@su.GitHubRepositories">View Repositories</button></td>
+            </tr>
+            
+        }
         </tbody>
 
 
     </table>
-    
+
 }
 else
 {
+    <!-- else if the list is empty, no users are found-->
     <h1>No users found!</h1>
 }
 
+<!-- modal for the display of repositories of the user-->
 <div class="modal fade" id="prod_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -95,6 +91,7 @@ else
 </div>
 
 
+<!-- Script to display the above modal on user button click-->
 <script type="text/javascript">
     $('#prod_details').on('show.bs.modal', function (event) {
 

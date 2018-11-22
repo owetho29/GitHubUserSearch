@@ -13,6 +13,7 @@ namespace GitHubUserSearchMain.Models
         public SearchUsersResult Result { get; set; }
         public string URL { get; set; }
 
+        //Constructor for a user, storing neccesary info
         public SearchUser(string user, IReadOnlyList<Repository> gitHubRepo, SearchUsersResult result, string url)
         {
             this.GitHubRepositories = gitHubRepo;
@@ -21,6 +22,7 @@ namespace GitHubUserSearchMain.Models
             this.URL = url;
         }
 
+        //Constructor for when no user is found
         public SearchUser(string user, SearchUsersResult result)
         {
             this.Name = user;
